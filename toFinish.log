@@ -1,0 +1,12 @@
+Hayush!
+
+Some things still don't work:
+1. EOF doesn't stop the getchar thing
+2. didn't manage to test the convert functions cause I was trying to understand the EOF error
+3. the code compiles with the string >> gcc -std=c99 -Wall -Wextra -Werror -pedantic-errors main.c -o ex1
+   (It's in the Assignment document, I just ran it in the command line)
+4. What's left to do is basically fixing the EOF and testing the rest of the program, there are probably some bugs
+5. I was wrong about puting the null in the dict arrays, it's probably true just in c++
+6. I'll explain to you the changes I made when we meet again, but I basically just googled the errors
+
+Have fun!! xoxo
