@@ -22,12 +22,15 @@ int int_pow(int base, int exp) {
 }
 
 int convert210(char *word, char *dict, int myBase) {
-	int sum, pow;
+	int sum=0;
+	int pow;
 	for (unsigned int i = 0; i<sizeof(word); i++) {
-		for (unsigned int l = 0; l<sizeof(&dict); l++) {
+		for (int l = 0; l<myBase; l++) {
 			if (word[i]==dict[l]) {
 				pow = int_pow(myBase, i);
+				printf("pow is %d\n", pow);
 				sum += l * pow;
+				printf("sum is %d\n", sum);
 			}
 		}
 	}
@@ -87,7 +90,7 @@ int main()
 	//Get number to convert
 	printf ("Please enter a number in base %d:\n", baseA);
 	Char = getchar();
-	while ((Char = getchar()) != EOF) {
+	while ((Char = getchar()) != EOF && index<3) {
 		for (int i=0; i<baseA; i++) {
 			if (Char==dictA[i]) {
 				//printf("char is not %c\n", dictA[i]);
@@ -113,6 +116,7 @@ int main()
 	if (baseB!=10) {
 		convertFrom10(sum, dictB, baseB, result);
 	} else {
+		printf("base is 10 and sum is %d\n", sum);
 		sprintf(result, "%d", sum);
 	}
 
