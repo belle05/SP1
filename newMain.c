@@ -1,10 +1,11 @@
- /*
+  /*
  *  Created on: Mar 27, 2017
  *      Author: nlevy
  */
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include <ctype.h>
 
 
 int int_pow(int base, int exp) {
@@ -22,26 +23,19 @@ int int_pow(int base, int exp) {
 int convert210(char *word, char *dict, int myBase){
         int sum=0;
         int pow;
-        int i, j;
-        char tempChar;
-//reversing the array
-        j = sizeof(word)-1;
-        while (i < j) {
-                tempChar = word[i];
-                word[i] = word[j];
-                word[j] = tempChar;
-                i++;
-                j--;
-        }
         for (unsigned int i = 0; i<sizeof(word); i++) {
                 for (int l = 0; l<myBase; l++) {
                         char charA = word[i];
                         char charB = dict[l];
+                //      printf("char is %c\n",charA);
+                //      printf("dict is %c\n",charB);
+                       // printf("i is %d\n", i);
+                       // printf("l is %d\n" ,l);
                         if (charA == charB) {
                                 pow = int_pow(myBase, i);
-                                printf("pow is %d\n", pow);
+                               // printf("pow is %d\n", pow);
                                 sum += l * pow;
-                                printf("sum is %d\n", sum);
+                               // printf("sum is %d\n", sum);
                         }
                 }
         }
@@ -54,22 +48,33 @@ void convertFrom10(int sum, char *dict, int newBase, char *result){
         char tempChar;
         while (sum!=1) {
                 tempChar = dict[sum%newBase];
+                printf("temp char %c\n",tempChar);
                 new_num[index] = tempChar;
                 index++;
                 sum = sum / newBase;
         }
 
         //reversing the array
-		        j = sizeof(new_num)-1;
+        for (unsigned int i = 0; i<sizeof(new_num);i++) {
+                if (isdigit(new_num[i]) || new_num[i] == 'A' || new_num[i] == 'B' ||  new_num[i] == 'C' ||  new_num[i] == 'D' ||  new_num[i] == 'E' ||  new_num[i] == 'F'   ) {
+                j = i;
+                }
+        }
+        i = 0;
         while (i < j) {
                 tempChar = new_num[i];
-            new_num[i] = new_num[j];
-            new_num[j] = tempChar;
-            i++;
-            j--;
+                new_num[i] = new_num[j];
+                new_num[j] = tempChar;
+                i++;
+                j--;
+        }
+        for (unsigned int i = 0;i<sizeof(new_num);i++) {
+                printf("result: %c\n",new_num[i]);
         }
         sprintf(result, "%s", new_num);
 }
+
+
 
 int main()
 {
@@ -103,7 +108,7 @@ int main()
         while (((Char = getchar()) != EOF && index<3) && Char!='\n') {
                 for (int i=0; i<baseA; i++) {
                         if (Char==dictA[i]) {
-                                printf("char is not %c\n", dictA[i]);
+                                //printf("char is not %c\n", dictA[i]);
                                 found = 1;
                                 i = baseA;
                         }
@@ -114,14 +119,32 @@ int main()
                 word[index] = Char;
                 index++;
         }
+        int i = 0;
+        char tempChar;
+        int j;
+        char rWord[20];
+//reversing the array
+        for (unsigned int i = 0; i<sizeof(word);i++) {
+                if (isdigit(word[i]) || word[i] == 'A' || word[i] == 'B' || word[i] == 'C' || word[i] == 'D' || word[i] == 'E' || word[i] == 'F' ) {
+                        j = i;
+                        rWord[i] = word[i];
+                }
+                else {
+                        word[i] = '\0';
+                        rWord[i] = '\0';
+                }
+        }
+        while (i < j) {
+                tempChar = rWord[i];
+                rWord[i] = rWord[j];
+                rWord[j] = tempChar;
+                i++;
+                j--;
+        }
 
 
         //convert to decimal base if needed
-        if (baseA!=10) {
-                sum = convert210(word,dictA,baseA);
-        } else {
-                sum = sscanf(word,"%d",&sum);
-        }
+        sum = convert210(rWord,dictA,baseA);
 
         //convert from decimal to baseB if needed
         if (baseB!=10) {
@@ -133,5 +156,5 @@ int main()
 
         //print result
         printf ("The result is : %s\n", result);
-
 }
+
