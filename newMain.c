@@ -11,13 +11,13 @@
 //int int_pow(int base, int exp) {
  //   int result = 1;
   //  while (exp)
-   // {
-    //    if (exp & 1)
-     //      result *= base;
-      //  exp /= 2;
-       // base *= base;
- //   }
-  //  return result;
+//    {
+//        if (exp & 1)
+//           result *= base;
+//        exp /= 2;
+//        base *= base;
+//    }
+//    return result;
 //}
 
 //int convert210(char tempChar, char *dict, int myBase){
@@ -43,14 +43,12 @@
 void convertFrom10(int sum, char *dict, int newBase, char *result){
         int i, j, index;
         index = 0;
-        int end;
         char new_num[20];
         char tempChar;
-		for (unsigned int i = 0; i<sizeof(new_num);i++) {
+        for (unsigned int i = 0; i<sizeof(new_num);i++) {
                 new_num[i] = '\0';
         }
-
-		while (sum!=0) {
+        while (sum!=0) {
                 tempChar = dict[sum%newBase];
 //                printf("temp char %c\n",tempChar);
                 new_num[index] = tempChar;
@@ -61,9 +59,8 @@ void convertFrom10(int sum, char *dict, int newBase, char *result){
         //reversing the array
         for (unsigned int i = 0; i<sizeof(new_num);i++) {
                 if (isdigit(new_num[i]) || new_num[i] == 'A' || new_num[i] == 'B' ||  new_num[i] == 'C' ||  new_num[i] == 'D' ||  new_num[i] == 'E' ||  new_num[i] == 'F'   ) {
-                end = i;
                 j = i;
-                }
+				}
                 else {
                       new_num[i] = '\0';
                 }
@@ -75,9 +72,6 @@ void convertFrom10(int sum, char *dict, int newBase, char *result){
                 new_num[j] = tempChar;
                 i++;
                 j--;
-        }
-        for (int i = 0;i<end+1;i++) {
-  //              printf("result: %c\n",new_num[i]);
         }
         sprintf(result, "%s", new_num);
 }
@@ -115,9 +109,10 @@ int main()
         //Get number to convert
         printf ("Please enter a number in base %d:\n", baseA);
         Char = getchar();
-		Char = toupper(Char);
+        Char = toupper(Char);
         while (((Char = getchar()) != EOF && index<3) && Char!='\n') {
-				Char = toupper(Char);
+                Char = toupper(Char);
+//              printf("the char is %c\n",Char);
                 for (int i=0; i<baseA; i++) {
                         if (Char==dictA[i]) {
                                 //printf("char is not %c\n", dictA[i]);
@@ -134,31 +129,9 @@ int main()
                         sum = sum*baseA;
                 }
                 sum += myChar;
+//              printf("sum is %d\n",sum);
                 index++;
         }
-  //      int i = 0;
- //       char tempChar;
-  //      int j;
-   //     char rWord[20];
-//reversing the array
-   //     for (unsigned int i = 0; i<sizeof(word);i++) {
-             //   if (isdigit(word[i]) || word[i] == 'A' || word[i] == 'B' || word[i] == 'C' || word[i] == 'D' || word[i] == 'E' || word[i] == 'F' ) {
-            //            j = i;
-           //             rWord[i] = word[i];
-          //      }
-         //       else {
-        //                word[i] = '\0';
-       //                 rWord[i] = '\0';
-      //          }
-     //   }
-      //  while (i < j) {
-     //           tempChar = rWord[i];
-    //            rWord[i] = rWord[j];
-   //             rWord[j] = tempChar;
-  //              i++;
- //               j--;
-//        }
-
 
         //convert from decimal to baseB if needed
         if (baseB!=10) {
@@ -170,4 +143,5 @@ int main()
         }
 
 }
+
 
