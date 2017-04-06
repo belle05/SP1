@@ -46,6 +46,10 @@ void convertFrom10(int sum, char *dict, int newBase, char *result){
         int end;
         char new_num[20];
         char tempChar;
+		for (unsigned int i = 0; i<sizeof(new_num);i++) {
+                new_num[i] = '\0';
+        }
+
 		while (sum!=0) {
                 tempChar = dict[sum%newBase];
 //                printf("temp char %c\n",tempChar);
@@ -111,7 +115,9 @@ int main()
         //Get number to convert
         printf ("Please enter a number in base %d:\n", baseA);
         Char = getchar();
+		Char = toupper(Char);
         while (((Char = getchar()) != EOF && index<3) && Char!='\n') {
+				Char = toupper(Char);
                 for (int i=0; i<baseA; i++) {
                         if (Char==dictA[i]) {
                                 //printf("char is not %c\n", dictA[i]);
