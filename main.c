@@ -100,6 +100,7 @@ int main()
 		}
 		if (found == 0) {
 			printf ("Invalid number!\n");
+			return 0;
 		}
 		word[index] = Char;
 		index++;
