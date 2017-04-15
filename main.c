@@ -67,7 +67,7 @@ int main()
 	//Get second base
 	printf ("Please enter the desired base:\n");
 	scanf ("%d", &baseB);
-	if(baseB>16 && baseB < 2) {
+	if(baseB>16 || baseB < 2) {
 			printf ("Invalid input base\n");
 			return 0;
 	}
@@ -75,21 +75,26 @@ int main()
 	char dictB[baseB];
 	memcpy(dictB, dict, baseB);
 
+	Char = 0;
 	sum = 0;
 	index = 0;
 	//Get number to convert
 	printf ("Please enter a number in base %d:\n", baseA);
 	Char = getchar();
 	Char = toupper(Char);
-	//while (((Char = getchar()) != EOF && index<baseA+1) && Char!='\n') {
 	while (((Char = getchar()) != EOF && index<32) && Char!='\n') {
 		Char = toupper(Char);
-		for (int i=0; i<baseA; i++) {
+		if (Char=='0') {
+			found = 1;
+			myChar = 0;
+		} else {
+			for (int i=0; i<baseA; i++) {
 				if (Char==dictA[i]) {
-						found = 1;
-						myChar = i;
-						i = baseA;
+					found = 1;
+					myChar = i;
+					i = baseA;
 				}
+			}
 		}
 		if (found == 0) {
 				printf ("Invalid number!\n");
@@ -104,7 +109,9 @@ int main()
 	}
 
 	//convert from decimal to baseB if needed
-	if (baseB!=10) {
+	if (sum==0) {
+		printf("The result is : 0\n");
+	} else if (baseB!=10) {
 		convertFrom10(sum, dictB, baseB, result);
 		printf("The result is : %s\n", result);
 	}
